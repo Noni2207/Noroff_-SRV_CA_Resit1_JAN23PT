@@ -1,17 +1,15 @@
 // routes/users.js
-
-
 const express = require('express');
-const { registerUser, getUser } = require('../controllers/userController');
-const { 
-  validateBodyFields, 
-  emailAlreadyRegistered, 
-  validEmailFormat 
-} = require('../middleware/validations');
+const { registerUser, getAllUsers, setUserActive, deleteUser } = require('../controllers/userController');
+const { validateBodyFields, emailAlreadyRegistered, validEmailFormat, validUserEmail } = require('../middleware/validations');
+const { jsendSuccess } = require('../middleware/errorHandler');
 
 const router = express.Router();
 
-// User registration
+console.log('setUserActive:', setUserActive);
+console.log('validEmailFormat:', validEmailFormat);
+console.log('validUserEmail:', validUserEmail);
+
 router.post(
   '/register',
   validateBodyFields(['email', 'firstname', 'lastname']),
@@ -20,7 +18,23 @@ router.post(
   registerUser
 );
 
-// Get user by email
-router.get('/:email', validEmailFormat, getUser);
+
+router.get('/', getAllUsers);
+
+router.put(
+  '/',
+  validateBodyFields(['email']),
+  validEmailFormat,
+  validUserEmail,
+  setUserActive
+);
+
+router.delete(
+  '/',
+  validateBodyFields(['email']),
+  validEmailFormat,
+  validUserEmail,
+  deleteUser
+);
 
 module.exports = router;
