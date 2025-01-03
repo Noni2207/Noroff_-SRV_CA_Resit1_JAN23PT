@@ -28,17 +28,19 @@ function validEmailFormat(req, res, next) {
 }
 
 // Check if the email is already registered in the global object
+const { users } = require('../data/global');
+
 function emailAlreadyRegistered(req, res, next) {
   const { email } = req.body;
-  const globalData = require('../data/global'); // Assuming global.js has data
-  if (globalData.users[email]) {
+  if (users[email]) {
     return res.status(400).json({
       status: 'error',
-      message: 'Email already registered'
+      message: 'Email is already registered',
     });
   }
   next();
 }
+
 
 // Check if user is registered and active
 function validUserEmail(req, res, next) {

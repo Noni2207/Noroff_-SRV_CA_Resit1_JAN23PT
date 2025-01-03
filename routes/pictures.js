@@ -2,6 +2,7 @@
 
 const express = require('express');
 const multer = require('multer');
+
 const { 
   uploadPicture, 
   getPictures, 
@@ -22,16 +23,10 @@ const router = express.Router();
 const asyncHandler = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next);
 
 // Set up multer for file uploads (mock without saving the file)
-const upload = multer();
+const upload = multer({ dest: 'uploads/' });
 
 // POST /pictures/:email
-router.post(
-  '/:email',
-  upload.single('picture'),
-  validEmailFormat,
-  validUserEmail,
-  asyncHandler(uploadPicture)
-);
+router.post('/:email', upload.single('picture'), uploadPicture);
 
 // GET /pictures/:email
 router.get(
@@ -51,12 +46,13 @@ router.get(
 
 // PUT /pictures/visible/:visible
 router.put(
-  '/visible/:visible',
-  validateBodyFields(['email', 'picId']),
+  '/visible',
+  validateBodyFields(['email', 'picId', 'visible']), 
   validEmailFormat,
   validUserEmail,
   asyncHandler(setVisibility)
 );
+
 
 // PUT /pictures
 router.put(

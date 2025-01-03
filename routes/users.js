@@ -1,6 +1,6 @@
 // routes/users.js
 const express = require('express');
-const { registerUser, getAllUsers, setUserActive, deleteUser } = require('../controllers/userController');
+const { registerUser, getAllUsers, setUserActive, deleteUser, activateUser } = require('../controllers/userController');
 const { validateBodyFields, emailAlreadyRegistered, validEmailFormat, validUserEmail } = require('../middleware/validations');
 const { jsendSuccess } = require('../middleware/errorHandler');
 
@@ -21,13 +21,7 @@ router.post(
 
 router.get('/', getAllUsers);
 
-router.put(
-  '/',
-  validateBodyFields(['email']),
-  validEmailFormat,
-  validUserEmail,
-  setUserActive
-);
+router.put('/', activateUser);
 
 router.delete(
   '/',
