@@ -2,7 +2,7 @@
 
 ## Hosted Application
 You can find the app hosted on Render at the following link:
-[Noroff_-SRV_CA_Resit1_JAN23PT](https://noroff-srv-ca-resit1-jan23pt.onrender.com/)
+https://noroff-srv-ca-resit1-jan23pt.onrender.com/
 
 
 ## Features
