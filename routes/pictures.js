@@ -44,7 +44,7 @@ router.get(
   asyncHandler(getVisiblePictures)
 );
 
-// PUT /pictures/visible/:visible
+// PUT /pictures/visible
 router.put(
   '/visible',
   validateBodyFields(['email', 'picId', 'visible']), 
@@ -52,7 +52,6 @@ router.put(
   validUserEmail,
   asyncHandler(setVisibility)
 );
-
 
 // PUT /pictures
 router.put(

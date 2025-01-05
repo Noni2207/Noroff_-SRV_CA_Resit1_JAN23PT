@@ -1,22 +1,23 @@
 // middleware/errorHandler.js
 
-function jsendError(res, message, statusCode = 400) {
-  return res.status(statusCode).json({
-    status: 'error',
-    message,
-    data: null
-  });
-}
-
-function jsendSuccess(res, data, message) {
+function jsendSuccess(res, data, message = '') {
   return res.status(200).json({
     status: 'success',
     message,
-    data
+    data,
   });
 }
 
-module.exports = { jsendError, jsendSuccess };
+function jsendError(res, message, code = 400) {
+  return res.status(code).json({
+    status: 'error',
+    message,
+    data: null,
+  });
+}
+
+module.exports = { jsendSuccess, jsendError };
+
 
 
 
